@@ -40,6 +40,13 @@ class BaseModel:
             self.updated_at = datetime.now()
             models.storage.new(self)
 
+    def __str__(self):
+        """
+        Return the print/str representation of the BaseModel instance.
+        """
+        cl_name = self.__class__.__name__
+        return "[{}] ({}) {}".format(cl_name, self.id, self.__dict__)
+
     def save(self):
         """
         Update updated_at with the current datetime.
@@ -59,10 +66,3 @@ class BaseModel:
         _dict["updated_at"] = self.updated_at.isoformat()
         _dict["__class__"] = self.__class__.__name__
         return _dict
-
-    def __str__(self):
-        """
-        Return the print/str representation of the BaseModel instance.
-        """
-        cl_name = self.__class__.__name__
-        return "[{}] ({}) {}".format(cl_name, self.id, self.__dict__)
