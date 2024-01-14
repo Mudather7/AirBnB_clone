@@ -25,8 +25,8 @@ class BaseModel:
         if not kwargs:
 
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             models.storage.new(self)
 
         else:
@@ -45,7 +45,7 @@ class BaseModel:
         """
 
         cls_name = self.__class__.__name__
-        return "[{}] ({}) {}".format(cls_name, self.id, self.__dict__)
+        return f'[{cls_name}] ({self.id}) {self.__dict__}'
 
     def save(self):
         """
@@ -53,7 +53,7 @@ class BaseModel:
         with the current datetime
         """
 
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
